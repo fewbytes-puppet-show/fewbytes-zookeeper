@@ -1,0 +1,17 @@
+#! /bin/bash
+# zookeeper daemon
+# chkconfig: 345 20 80
+# description: zookeeper daemon
+# processname: zookeeper
+
+DAEMON=zookeeper
+NAME=zookeeper
+DESC="Apache Zookeeper"
+PIDFILE=/var/run/$NAME.pid
+SCRIPTNAME=/etc/init.d/$NAME
+
+export ZOOCFGDIR="<%= @conf_dir %>"
+
+cd /opt/zookeeper/current
+
+exec sudo -E -u <%= @user %> bin/zkServer.sh "$@"

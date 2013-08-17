@@ -1,0 +1,15 @@
+ZOO_LOG_DIR="<%= @log_dir %>"
+ZOOBINDIR="/opt/zookeeper/current/bin"
+ZOO_LOG4J_PROP="INFO,ROLLINGFILE"
+<% if @java_xmx -%>
+JVMFLAGS="$JVMFLAGS -Xmx<%= @java_xmx %>"
+<% end -%>
+<% if @java_xms -%>
+JVMFLAGS="$JVMFLAGS -Xms<%= @java_xms %>"
+<% end -%>
+<% if @java_xmn -%>
+JVMFLAGS="$JVMFLAGS -Xmn<%= @java_xmn %>"
+<% end -%>
+<% if @java_opts -%>
+JVMFLAGS="$JVMFLAGS <%= @java_opts %>"
+<% end -%>

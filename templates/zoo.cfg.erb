@@ -10,6 +10,10 @@ syncLimit=5
 # do not use /tmp for storage, /tmp here is just 
 # example sakes.
 dataDir=<%= @data_dir %>
+<% if @data_log_dir -%>
+dataLogDir=<%= @data_log_dir %>
+<% end -%>
+
 # the port at which the clients will connect
 clientPort=2181
 #

@@ -3,14 +3,24 @@ class zookeeper::install(
 	$checksum  = $zookeeper::params::checksum,
 	$version   = $zookeeper::params::version
 ) inherits zookeeper::params {
+	if $url =~ /^puppet:\/\// {
+		file {"/usr/src/zookeeper-$version.tar.gz":
+			source => $url,
+			before => Archive::Extract["zookeeper-${version}"]
+		}
+	} else {
+		archive::download{"zookeeper-${version}":
+			url => $url,
+		    digest_string => $checksum,
+		}
+	}
+
 	file{"/opt/zookeeper":
 		ensure => directory,
 		mode => 644
 	}
 	->
-	archive{"zookeeper-${version}":
-		url => $url,
-		digest_string => $checksum,
+	archive::extract{"zookeeper-${version}":
 		target => "/opt/zookeeper"
 	}
 	->

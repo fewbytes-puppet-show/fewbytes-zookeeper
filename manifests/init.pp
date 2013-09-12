@@ -24,6 +24,8 @@ class zookeeper(
 	$java_xms        = undef,
 	$java_opts       = undef,
 ) inherits zookeeper::params {
+
+	$zk_id = inline_template("<%= @zookeeper_nodes.find_index{|n| [scope.lookupvar('fqdn'), scope.lookupvar('ipaddress'), scope.lookupvar('hostname')].include? n } %>")
 	include java
 
 	class {zookeeper::install: }
@@ -62,7 +64,11 @@ class zookeeper(
 		target => "${conf_dir}/zoo.cfg",
 		before => Service[zookeeper]
 	}
-
+	file{"${data_dir}/myid":
+		content => "${zk_id}",
+		mode => 644,
+		notify => Service[zookeeper]
+	}
 	class {zookeeper::service: 
 		init_style => $init_style, 
 		require => [File[$data_dir], File[$log_dir], Class["java"]]

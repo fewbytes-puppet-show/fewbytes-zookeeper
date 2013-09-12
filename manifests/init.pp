@@ -65,6 +65,6 @@ class zookeeper(
 
 	class {zookeeper::service: 
 		init_style => $init_style, 
-		require => [File[$data_dir], File[$log_dir]]
+		require => [File[$data_dir], File[$log_dir], Class["java"]]
 	}
 }

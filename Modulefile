@@ -8,4 +8,4 @@ description 'UNKNOWN'
 project_page 'https://github.com/fewbytes-puppet-show/fewbytes-zookeeper'
 
 dependency 'fewbytes/upstart'
-dependency 'smarchive/archive'
+dependency 'jini/archive'
